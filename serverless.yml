@@ -1,0 +1,59 @@
+service:
+  name: eln-service
+
+plugins:
+  - serverless-bundle
+  - serverless-pseudo-parameters
+  - serverless-aws-documentation
+  - serverless-mocha-plugin
+  - serverless-stack-output
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 256
+  timeout: 10
+  stage: ${opt:stage, 'dev'}
+  region: eu-west-2
+  tracing:
+    apiGateway: true
+    lambda: true   
+  environment:
+    TABLE_NAME: ${self:custom.MessageRecordsTable.name}
+  iamRoleStatements:
+    - ${file(iam/MessageRecordsTableIAM.yml):MessageRecordsTableIAM}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
+
+resources:
+  Resources:
+    MessageRecordsTable: ${file(resources/MessageRecordsTable.yml):MessageRecordsTable}
+    
+functions:
+  GetMessage:
+    handler: src/handlers/endpoints.handlerGetRecord
+    events:
+      - http:
+          method: GET
+          path: /messages/{id}
+          cors: true
+     
+  PostMessage:
+    handler: src/handlers/endpoints.handlerPostRecord
+    events:
+      - http:
+          method: POST
+          path: /messages/
+          cors: true
+
+custom:
+  MessageRecordsTable:
+    name: !Ref MessageRecordsTable
+    arn: !GetAtt MessageRecordsTable.Arn    
+  bundle:
+    linting: false
+  output: #the file that will contain the outputed full apigateway url after deployment, useful for unit tests
+    file: .build/stack.json    
