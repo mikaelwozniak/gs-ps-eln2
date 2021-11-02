@@ -1,5 +1,4 @@
 // @ts-check
-//const mochaPlugin = require('serverless-mocha-plugin');
 import chai from 'chai'
 var assert = chai.assert;
 const AWS = require("aws-sdk");
