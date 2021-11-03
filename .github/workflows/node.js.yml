@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,6 +25,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
+    - run: rm package-lock.json
+    - run: npm install -g serverless
+    - run: npm install 
     - run: npm test
+    - run: serverless deploy --stage integrationtest -v
+    - run: npm run itest
+    - run: serverless remove --stage integrationtest -v
+
