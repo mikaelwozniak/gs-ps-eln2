@@ -28,9 +28,17 @@ jobs:
     - run: rm package-lock.json
     - run: npm install 
     - run: npm test
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
     #integration test involve deploying to AWS
-    # - run: npm install -g serverless    
-    # - run: serverless deploy --stage integrationtest -v
-    # - run: npm run itest
-    # - run: serverless remove --stage integrationtest -v
+    - run: npm install -g serverless    
+    - run: serverless deploy --stage integrationtest -v
+    - run: npm run itest
+    - run: serverless remove --stage integrationtest -v
 
