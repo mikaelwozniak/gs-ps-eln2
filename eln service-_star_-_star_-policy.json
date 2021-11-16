@@ -22,7 +22,7 @@
         "cloudformation:UpdateStack"
       ],
       "Resource": [
-        "arn:aws:cloudformation:*:*:stack/eln service-*/*"
+        "arn:aws:cloudformation:*:*:stack/elnservice2-*/*"
       ]
     },
     {
@@ -52,7 +52,7 @@
         "s3:PutEncryptionConfiguration"
       ],
       "Resource": [
-        "arn:aws:s3:::eln service*serverlessdeploy*"
+        "arn:aws:s3:::elnservice2*serverlessdeploy*"
       ]
     },
     {
@@ -63,7 +63,7 @@
         "s3:DeleteObject"
       ],
       "Resource": [
-        "arn:aws:s3:::eln service*serverlessdeploy*"
+        "arn:aws:s3:::elnservice2*serverlessdeploy*"
       ]
     },
     {
@@ -78,7 +78,7 @@
         "lambda:Update*"
       ],
       "Resource": [
-        "arn:aws:lambda:*:*:function:eln service-*-*"
+        "arn:aws:lambda:*:*:function:elnservice2-*-*"
       ]
     },
     {
@@ -110,7 +110,7 @@
       "Effect": "Allow",
       "Action": "kinesis:*",
       "Resource": [
-        "arn:aws:kinesis:*:*:stream/eln service-*-*"
+        "arn:aws:kinesis:*:*:stream/elnservice2-*-*"
       ]
     },
     {
@@ -123,14 +123,14 @@
         "iam:DeleteRole"
       ],
       "Resource": [
-        "arn:aws:iam::*:role/eln service-*-*-lambdaRole"
+        "arn:aws:iam::*:role/elnservice2-*-*-lambdaRole"
       ]
     },
     {
       "Effect": "Allow",
       "Action": "sqs:*",
       "Resource": [
-        "arn:aws:sqs:*:*:eln service-*-*"
+        "arn:aws:sqs:*:*:elnservice2-*-*"
       ]
     },
     {
@@ -181,7 +181,7 @@
         "events:Delete*"
       ],
       "Resource": [
-        "arn:aws:events:*:*:rule/eln service-*-*"
+        "arn:aws:events:*:*:rule/elnservice2-*-*"
       ]
     },
     {
@@ -190,7 +190,7 @@
         "events:DescribeRule"
       ],
       "Resource": [
-        "arn:aws:events:*:*:rule/eln service-*-*"
+        "arn:aws:events:*:*:rule/elnservice2-*-*"
       ]
     },
     {
