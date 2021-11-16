@@ -1,5 +1,5 @@
 {
-  "name": "elnservice2",
+  "name": "eln-service",
   "version": "1.0.0",
   "scripts": {
     "itest": "jest --testPathPattern __tests__/integration",
